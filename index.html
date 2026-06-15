@@ -1225,7 +1225,8 @@
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${WAVESPEED_KEY}`
+            'Authorization': `Bearer ${WAVESPEED_KEY}`,
+            'Origin': 'https://uuree-love-website.vercel.app'
           },
           body: JSON.stringify({
             image: studioPhotoBase64,
@@ -1235,7 +1236,9 @@
           })
         });
 
-        const data = await res.json();
+        const text = await res.text();
+        console.log("Wavespeed raw response:", text);
+        const data = JSON.parse(text);
         if (!res.ok || !data.data?.outputs?.[0]) {
           throw new Error(data.message || 'no output returned');
         }
