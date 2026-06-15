@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For My Princess, Uuriintuya 🌸</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Reset & Base ─────────────────────────────────── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: #7D1212;
+      font-family: 'Nunito', sans-serif;
+      color: #F5ECD7;
+      overflow-x: hidden;
+      position: relative;
+    }
+    /* Subtle grain texture overlay */
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.04;
+      pointer-events: none;
+      z-index: 0;
+      mix-blend-mode: overlay;
+    }
+
+    /* ─── Floating Petals ───────────────────────────────── */
+    .petal {
+      position: fixed;
+      top: -60px;
+      width: 18px; height: 18px;
+      background: radial-gradient(circle at 40% 40%, #C0392B, #7D1212cc);
+      border-radius: 50% 0 50% 0;
+      opacity: 0;
+      animation: petalFall linear infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+    @keyframes petalFall {
+      0%   { transform: translateY(0) rotate(0deg) scale(1); opacity: 0; }
+      10%  { opacity: 0.55; }
+      90%  { opacity: 0.35; }
+      100% { transform: translateY(110vh) rotate(360deg) scale(0.6); opacity: 0; }
+    }
+
+    /* ─── Intro Overlay ─────────────────────────────────── */
+    #intro {
+      position: fixed; inset: 0;
+      background: linear-gradient(135deg, #4A0A0A 0%, #7D1212 50%, #8B1A1A 100%);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.9s ease, visibility 0.9s ease;
+    }
+    #intro.hidden { opacity: 0; visibility: hidden; }
+    .intro-heart { font-size: 4rem; animation: introPulse 1.2s ease-in-out infinite; margin-bottom: 1.5rem; }
+    @keyframes introPulse {
+      0%, 100% { transform: scale(1); }
+      50%       { transform: scale(1.18); }
+    }
+    .intro-text {
+      font-family: 'Cormorant Garamond', 'Playfair Display', serif;
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      color: #F5ECD7;
+      letter-spacing: 0.06em;
+      animation: introFadeIn 1.4s ease forwards;
+      opacity: 0;
+      text-align: center;
+    }
+    @keyframes introFadeIn {
+      0%   { opacity: 0; transform: translateY(18px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .intro-petals-wrap { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+    .intro-petal {
+      position: absolute;
+      width: 16px; height: 16px;
+      background: radial-gradient(circle at 40% 40%, #C0392B, #8B1A1A);
+      border-radius: 50% 0 50% 0;
+      animation: introFall linear forwards;
+      opacity: 0;
+    }
+    @keyframes introFall {
+      0%   { opacity: 0; transform: translateY(0) rotate(0deg); }
+      15%  { opacity: 0.7; }
+      100% { opacity: 0.2; transform: translateY(110vh) rotate(300deg); }
+    }
+
+    /* ─── Section Wrappers ──────────────────────────────── */
+    section { position: relative; z-index: 1; padding: 80px 20px; }
+    .section-title {
+      font-family: 'Cormorant Garamond', 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      color: #F5ECD7;
+      text-align: center;
+      margin-bottom: 0.4rem;
+      letter-spacing: 0.03em;
+    }
+    .section-sub {
+      font-size: 1rem;
+      color: #C4A090;
+      text-align: center;
+      font-style: italic;
+      margin-bottom: 3rem;
+    }
+
+    /* ─── Hero ──────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 80px 24px 60px;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 250px 1fr 250px;
+      align-items: center;
+      gap: 2rem;
+      width: 100%;
+      max-width: 1200px;
+    }
+    .hero-center { display: flex; flex-direction: column; align-items: center; text-align: center; }
+
+    /* ─── Hero Polaroids ────────────────────────────────── */
+    .hero-polaroid {
+      background: #F5ECD7;
+      padding: 14px 14px 52px;
+      border-radius: 2px;
+      box-shadow: 6px 6px 20px rgba(0,0,0,0.5), 0 0 0 1px rgba(192,57,43,0.25);
+      width: 230px;
+      flex-shrink: 0;
+      align-self: center;
+    }
+    .polaroid-left  { transform: rotate(-6deg); justify-self: end; }
+    .polaroid-right { transform: rotate(5deg);  justify-self: start; }
+    .hero-polaroid:hover { transform: rotate(0deg) scale(1.04); transition: transform 0.3s ease; z-index: 2; position: relative; }
+
+    .polaroid-img-area {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      max-height: 175px;
+      overflow: hidden;
+      border-radius: 1px;
+      position: relative;
+      background: #C8A882;
+    }
+    .polaroid-img-area img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      border-radius: 1px;
+      filter: sepia(0.2);
+    }
+    .hero-polaroid .polaroid-caption {
+      font-family: 'Cormorant Garamond', 'Playfair Display', serif;
+      font-size: 0.9rem;
+      color: #6B2020;
+      text-align: center;
+      font-style: italic;
+      margin-top: 10px;
+      line-height: 1.4;
+    }
+
+    @media (max-width: 820px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+        justify-items: center;
+      }
+      .polaroid-left  { transform: rotate(-3deg); justify-self: center; }
+      .polaroid-right { transform: rotate(3deg);  justify-self: center; }
+      .hero-polaroid { order: 3; }
+      .hero-center   { order: 1; }
+      .polaroid-left { order: 2; }
+      .polaroid-right { order: 3; }
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 6vw, 4rem);
+      color: #F5ECD7;
+      line-height: 1.2;
+      margin-bottom: 0.8rem;
+      animation: fadeUp 1s ease 0.2s both;
+      letter-spacing: 0.03em;
+    }
+    .hero-sub {
+      font-size: clamp(1rem, 2.5vw, 1.35rem);
+      font-style: italic;
+      color: #C4A090;
+      margin-bottom: 2rem;
+      animation: fadeUp 1s ease 0.4s both;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-heart {
+      font-size: 3.5rem;
+      animation: heroPulse 2s ease-in-out infinite;
+      margin-bottom: 2.2rem;
+      display: block;
+      filter: drop-shadow(0 0 14px rgba(192,57,43,0.7));
+    }
+    @keyframes heroPulse {
+      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(192,57,43,0.5)); }
+      50%       { transform: scale(1.12); filter: drop-shadow(0 0 24px rgba(192,57,43,0.9)); }
+    }
+    .love-letter {
+      max-width: 750px;
+      margin: 0 auto 2.5rem;
+      font-size: 1.18rem;
+      line-height: 2rem;
+      color: #F5ECD7;
+      animation: fadeUp 1s ease 0.6s both;
+      text-align: center;
+    }
+    .love-letter .sig {
+      margin-top: 1.2rem;
+      font-weight: 700;
+      color: #EDE0C4;
+      display: block;
+    }
+
+    /* ─── Buttons ───────────────────────────────────────── */
+    .btn-group { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; animation: fadeUp 1s ease 0.8s both; }
+    .btn {
+      padding: 0.85rem 2rem;
+      border-radius: 50px;
+      border: none;
+      font-family: 'Nunito', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-primary {
+      background: #F5ECD7;
+      color: #8B1A1A;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.35);
+    }
+    .btn-secondary {
+      background: transparent;
+      color: #F5ECD7;
+      border: 2px solid #F5ECD7;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.2);
+    }
+    .btn:hover { transform: translateY(-3px) scale(1.04); box-shadow: 0 10px 32px rgba(0,0,0,0.4); }
+    .btn:active { transform: scale(0.97); }
+
+    /* ─── Love Notes Section ────────────────────────────── */
+    #lovenotes { background: linear-gradient(180deg, #7D1212 0%, #6B0F0F 100%); text-align: center; }
+    .lovenote-icon {
+      font-size: 6rem;
+      display: block;
+      margin: 0 auto 1.6rem;
+      filter: drop-shadow(0 4px 18px rgba(192,57,43,0.5));
+      animation: heroPulse 3s ease-in-out infinite;
+    }
+    .lovenote-open-btn {
+      display: inline-block;
+      padding: 1rem 2.6rem;
+      border-radius: 50px;
+      background: #F5ECD7;
+      color: #8B1A1A;
+      font-family: 'Nunito', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 6px 26px rgba(0,0,0,0.35);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .lovenote-open-btn:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 12px 36px rgba(0,0,0,0.45); }
+
+    /* ─── Modal ─────────────────────────────────────────── */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.62);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 8000;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      padding: 20px;
+    }
+    .modal-overlay.active { opacity: 1; visibility: visible; }
+
+    .modal-box {
+      background: #F5ECD7;
+      border-radius: 24px;
+      padding: 2.4rem 2.2rem 2rem;
+      width: 90vw;
+      max-width: 520px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.55), 0 0 0 1px rgba(192,57,43,0.18);
+      position: relative;
+      transform: scale(0.85);
+      transition: transform 0.3s ease;
+    }
+    .modal-overlay.active .modal-box { transform: scale(1); }
+
+    .modal-close {
+      position: absolute;
+      top: 1rem; right: 1.2rem;
+      background: none; border: none;
+      font-size: 1.3rem; color: #8B1A1A;
+      cursor: pointer; line-height: 1;
+      transition: transform 0.2s, color 0.2s;
+    }
+    .modal-close:hover { transform: scale(1.2) rotate(10deg); color: #6B0000; }
+
+    .modal-heading {
+      font-family: 'Cormorant Garamond', 'Playfair Display', serif;
+      font-size: 1.05rem;
+      color: #8B1A1A;
+      margin-bottom: 0.7rem;
+      text-align: center;
+      letter-spacing: 0.04em;
+      opacity: 0.65;
+    }
+    .modal-note-title {
+      font-family: 'Cormorant Garamond', 'Playfair Display', serif;
+      font-size: 1.55rem;
+      font-style: italic;
+      font-weight: 600;
+      color: #8B1A1A;
+      text-align: center;
+      letter-spacing: 0.03em;
+      margin-bottom: 1rem;
+      transition: opacity 0.2s ease;
+    }
+    .modal-body {
+      font-size: 1.08rem;
+      line-height: 1.9;
+      color: #3D1A1A;
+      text-align: center;
+      max-height: 55vh;
+      overflow-y: auto;
+      padding: 0 0.6rem;
+      margin-bottom: 0;
+      transition: opacity 0.2s ease;
+    }
+    .modal-divider {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      max-width: 300px;
+      margin: 1.2rem auto 1.4rem;
+    }
+    .modal-divider::before,
+    .modal-divider::after {
+      content: '';
+      flex: 1;
+      border-top: 1px solid #C0392B;
+    }
+    .modal-divider-heart {
+      color: #8B0000;
+      font-size: 12px;
+      line-height: 1;
+    }
+    .modal-next {
+      display: block;
+      margin: 0 auto;
+      padding: 0.85rem 2rem;
+      border-radius: 50px;
+      background: #8B1A1A;
+      color: #F5ECD7;
+      font-family: 'Nunito', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 18px rgba(139,26,26,0.35);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .modal-next:hover { transform: translateY(-2px) scale(1.04); box-shadow: 0 8px 26px rgba(139,26,26,0.5); }
+
+    /* ─── Gallery ───────────────────────────────────────── */
+    #gallery { background: #7D1212; }
+    .polaroid-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .polaroid {
+      background: #F5ECD7;
+      border-radius: 2px;
+      padding: 14px 14px 20px;
+      box-shadow: 0 6px 30px rgba(0,0,0,0.45);
+      transform: rotate(var(--rot, 0deg));
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: default;
+    }
+    .polaroid:hover {
+      transform: rotate(0deg) scale(1.05);
+      box-shadow: 0 14px 40px rgba(0,0,0,0.6);
+      z-index: 2;
+      position: relative;
+    }
+    .polaroid-img {
+      width: 100%; aspect-ratio: 1;
+      border-radius: 1px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem;
+      margin-bottom: 12px;
+      background: var(--bg, #C8A882);
+      filter: sepia(0.35);
+      overflow: hidden;
+    }
+    .polaroid-img img,
+    .polaroid-img video {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .polaroid-caption {
+      font-family: 'Cormorant Garamond', 'Playfair Display', serif;
+      font-size: 0.9rem;
+      color: #6B2020;
+      text-align: center;
+      font-style: italic;
+      line-height: 1.4;
+    }
+
+
+    /* ─── Footer ────────────────────────────────────────── */
+    #footer {
+      background: linear-gradient(135deg, #4A0A0A, #7D1212);
+      padding: 80px 20px 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .footer-hearts { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+    .fheart {
+      position: absolute;
+      font-size: var(--fs, 1.4rem);
+      opacity: 0;
+      animation: fheartFloat linear infinite;
+      bottom: -40px;
+    }
+    @keyframes fheartFloat {
+      0%   { opacity: 0; transform: translateY(0) rotate(0deg) scale(1); }
+      20%  { opacity: 0.35; }
+      80%  { opacity: 0.2; }
+      100% { opacity: 0; transform: translateY(-110%) rotate(25deg) scale(0.7); }
+    }
+    .footer-msg {
+      font-family: 'Cormorant Garamond', 'Playfair Display', serif;
+      font-size: clamp(1.3rem, 4vw, 2rem);
+      color: #F5ECD7;
+      line-height: 1.6;
+      max-width: 600px;
+      margin: 0 auto 1rem;
+      position: relative;
+      z-index: 1;
+      letter-spacing: 0.02em;
+    }
+    .footer-sig {
+      font-size: 1.1rem;
+      color: #C4A090;
+      font-style: italic;
+      position: relative;
+      z-index: 1;
+    }
+    .footer-heart-big {
+      font-size: 3rem;
+      display: block;
+      margin: 1.5rem auto 0;
+      animation: heroPulse 2s ease-in-out infinite;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ─── Scroll Reveal ─────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── Studio Section ───────────────────────────────── */
+    #studio { background: linear-gradient(180deg, #7D1212 0%, #6B0F0F 100%); text-align: center; }
+
+    .studio-film-frame {
+      background: #F5ECD7;
+      border-radius: 4px;
+      padding: 14px 14px 52px;
+      box-shadow: 6px 6px 24px rgba(0,0,0,0.5);
+      width: 260px;
+      margin: 0 auto 1.4rem;
+    }
+    .studio-img-area {
+      width: 100%;
+      aspect-ratio: 1;
+      background: #C8A882;
+      border-radius: 2px;
+      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .studio-img-area img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: none;
+      border-radius: 2px;
+    }
+    .studio-placeholder {
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 0.4rem;
+      color: #8B1A1A;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.85rem;
+    }
+    .studio-placeholder span { font-size: 2.2rem; }
+    .studio-frame-caption {
+      font-family: 'Cormorant Garamond', 'Playfair Display', serif;
+      font-size: 0.85rem;
+      color: #6B2020;
+      font-style: italic;
+      margin-top: 8px;
+    }
+    .studio-ready {
+      color: #D4B896;
+      font-size: 0.88rem;
+      font-family: 'Nunito', sans-serif;
+      margin-bottom: 1.2rem;
+      display: none;
+    }
+
+    .studio-input-btns {
+      display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+      margin-bottom: 2.2rem;
+    }
+    .studio-btn {
+      padding: 0.75rem 1.6rem;
+      border-radius: 50px;
+      background: #F5ECD7;
+      color: #8B1A1A;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .studio-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+    .studio-btn-outline {
+      padding: 0.75rem 1.6rem;
+      border-radius: 50px;
+      background: transparent;
+      color: #F5ECD7;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      border: 2px solid #F5ECD7;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.2s;
+    }
+    .studio-btn-outline:hover { transform: translateY(-2px); background: rgba(245,236,215,0.1); }
+
+    .studio-transform-wrap {
+      max-width: 580px;
+      margin: 0 auto 2rem;
+    }
+    .studio-section-label {
+      font-family: 'Cormorant Garamond', 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: #D4A898;
+      font-style: italic;
+      margin-bottom: 0.9rem;
+    }
+    .studio-prompt-input {
+      width: 100%;
+      padding: 0.9rem 1.2rem;
+      border-radius: 16px;
+      border: 1px solid rgba(192,57,43,0.4);
+      background: rgba(245,236,215,0.08);
+      color: #F5ECD7;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+      margin-bottom: 1.1rem;
+      box-sizing: border-box;
+    }
+    .studio-prompt-input::placeholder { color: rgba(245,236,215,0.45); }
+    .studio-prompt-input:focus { border-color: #C0392B; background: rgba(245,236,215,0.12); }
+
+    .studio-presets {
+      display: flex; flex-wrap: wrap; gap: 0.6rem;
+      justify-content: center;
+    }
+    .studio-preset-pill {
+      padding: 0.45rem 1rem;
+      border-radius: 50px;
+      border: 1.5px solid rgba(192,57,43,0.45);
+      background: transparent;
+      color: #D4A898;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .studio-preset-pill:hover { border-color: #C0392B; color: #F5ECD7; }
+    .studio-preset-pill.active {
+      background: #8B1A1A;
+      border-color: #8B1A1A;
+      color: #F5ECD7;
+      box-shadow: 0 2px 12px rgba(139,26,26,0.5);
+    }
+
+    .studio-generate-btn {
+      display: inline-block;
+      padding: 1rem 2.8rem;
+      border-radius: 50px;
+      background: #F5ECD7;
+      color: #8B1A1A;
+      font-family: 'Nunito', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 6px 26px rgba(0,0,0,0.35);
+      transition: transform 0.2s, box-shadow 0.2s;
+      margin-bottom: 2rem;
+    }
+    .studio-generate-btn:hover { transform: translateY(-3px) scale(1.04); box-shadow: 0 12px 36px rgba(0,0,0,0.45); }
+    .studio-generate-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    .studio-loading {
+      display: none;
+      flex-direction: column; align-items: center; gap: 0.6rem;
+      margin-bottom: 1.6rem;
+    }
+    .studio-loading-icon {
+      font-size: 2.4rem;
+      animation: studioPulse 1.2s ease-in-out infinite;
+      display: block;
+    }
+    @keyframes studioPulse {
+      0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+      50%       { transform: scale(1.25) rotate(15deg); opacity: 0.7; }
+    }
+    .studio-loading p { color: #D4A898; font-style: italic; font-size: 0.95rem; }
+
+    .studio-error {
+      display: none;
+      color: #F5ECD7;
+      font-style: italic;
+      font-size: 0.95rem;
+      margin-bottom: 1.2rem;
+      background: rgba(139,26,26,0.35);
+      padding: 0.7rem 1.4rem;
+      border-radius: 12px;
+      max-width: 420px;
+      margin-left: auto; margin-right: auto;
+    }
+
+    .studio-result { display: none; margin-top: 1rem; animation: fadeUp 0.5s ease both; }
+    .studio-result .studio-film-frame img {
+      display: block;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      border-radius: 2px;
+    }
+    .studio-caption {
+      font-family: 'Cormorant Garamond', 'Playfair Display', serif;
+      font-size: 1rem;
+      color: #C4A090;
+      font-style: italic;
+      margin-bottom: 1.2rem;
+    }
+    .studio-result-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    /* ─── Responsive ────────────────────────────────────── */
+    @media (max-width: 600px) {
+      .love-letter { font-size: 0.95rem; }
+      .polaroid-grid { grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Intro Overlay ────────────────────────────────── -->
+  <div id="intro">
+    <div class="intro-petals-wrap" id="introPetals"></div>
+    <div class="intro-heart">🌸</div>
+    <p class="intro-text">For my Baby 🌸</p>
+  </div>
+
+  <!-- ── Global Falling Petals ────────────────────────── -->
+  <div id="globalPetals" aria-hidden="true"></div>
+
+  <!-- ══════════════════════════════════════════════════════
+       HERO
+  ═══════════════════════════════════════════════════════ -->
+  <section id="hero">
+    <div class="hero-grid">
+
+      <!-- Left Polaroid -->
+      <div class="hero-polaroid polaroid-left">
+        <div class="polaroid-img-area">
+          <img src="photos/hero1.jpg" alt="" />
+        </div>
+        <p class="polaroid-caption">my baby 🌸</p>
+      </div>
+
+      <!-- Center Content -->
+      <div class="hero-center">
+        <h1 class="hero-title">To My Princess, Uuriintuya 🌸</h1>
+        <p class="hero-sub">my favourite person in the entire world</p>
+        <span class="hero-heart">💗</span>
+
+        <div class="love-letter reveal">
+          Hello Baby 🌸 I made this little world just for you, because honestly you live in my head rent free every single day and I wouldn't have it any other way. You are my baby, my Gunj, my Darling, my absolutely everything. I love you in ways I don't even know how to put into words, so I built this instead. This little page is full of our memories, all the reasons my heart is yours, and one thing I really need you to always remember: give everything your best, okay? You are so much more capable than you think. I will always be in your corner cheering the loudest. You are so so loved.
+          <span class="sig">💙 Margad</span>
+        </div>
+
+        <div class="btn-group">
+          <a class="btn btn-primary" href="#lovenotes">Explore 🌸</a>
+          <a class="btn btn-secondary" href="#lovenotes">Open a Surprise 💌</a>
+        </div>
+      </div>
+
+      <!-- Right Polaroid -->
+      <div class="hero-polaroid polaroid-right">
+        <div class="polaroid-img-area">
+          <img src="photos/hero2.jpg" alt="" />
+        </div>
+        <p class="polaroid-caption">my everything 💙</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       ENVELOPES
+  ═══════════════════════════════════════════════════════ -->
+  <section id="lovenotes">
+    <h2 class="section-title reveal">Things I Love About You, Baby 💙</h2>
+    <p class="section-sub reveal">tap to open a little love note</p>
+
+    <span class="lovenote-icon reveal">💌</span>
+    <button class="lovenote-open-btn reveal" onclick="openLoveNote()">Open a Love Note 💌</button>
+  </section>
+
+  <!-- Modal -->
+  <div class="modal-overlay" id="loveModal" onclick="handleOverlayClick(event)">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeLoveNote()" aria-label="Close">✕</button>
+      <h3 class="modal-heading">a little something for you 🌸</h3>
+      <p class="modal-note-title" id="modalNoteTitle"></p>
+      <p class="modal-body" id="modalText"></p>
+      <div class="modal-divider"><span class="modal-divider-heart">♥</span></div>
+      <button class="modal-next" onclick="nextLoveNote()">Next Note 💌</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       GALLERY
+  ═══════════════════════════════════════════════════════ -->
+  <section id="gallery">
+    <h2 class="section-title reveal">Our Memories, Uurshka 📸</h2>
+    <p class="section-sub reveal">moments i never want to forget</p>
+
+    <div class="polaroid-grid reveal">
+
+      <div class="polaroid" style="--rot: -2.5deg">
+        <div class="polaroid-img"><img src="photos/photo1.jpg" alt="my favourite person"></div>
+      </div>
+
+      <div class="polaroid" style="--rot: 1.8deg">
+        <div class="polaroid-img"><img src="photos/photo2.jpg" alt="always you"></div>
+      </div>
+
+      <div class="polaroid" style="--rot: -1.2deg">
+        <div class="polaroid-img"><img src="photos/photo3.jpg" alt="my whole world"></div>
+      </div>
+
+      <div class="polaroid" style="--rot: 2.4deg">
+        <div class="polaroid-img"><img src="photos/photo4.jpg" alt="us, always"></div>
+      </div>
+
+      <div class="polaroid" style="--rot: -3deg">
+        <div class="polaroid-img"><img src="photos/photo5.jpg" alt="a moment i never want to forget"></div>
+      </div>
+
+      <div class="polaroid" style="--rot: 1.5deg">
+        <div class="polaroid-img"><img src="photos/photo6.jpg" alt="my baby"></div>
+      </div>
+
+      <div class="polaroid" style="--rot: -2deg">
+        <div class="polaroid-img"><img src="photos/photo7.jpg" alt="the best days are with you"></div>
+      </div>
+
+      <div class="polaroid" style="--rot: 2.1deg">
+        <div class="polaroid-img"><img src="photos/photo8.jpg" alt="my everything"></div>
+      </div>
+
+      <div class="polaroid" style="--rot: -1.6deg">
+        <div class="polaroid-img"><img src="photos/photo9.jpg" alt="forever my favourite"></div>
+      </div>
+
+      <div class="polaroid" style="--rot: 2.8deg">
+        <div class="polaroid-img"><img src="photos/photo10.jpg" alt="i love you so much"></div>
+      </div>
+
+      <div class="polaroid" style="--rot: -1.9deg">
+        <div class="polaroid-img"><img src="photos/photo11.jpg" alt=""></div>
+      </div>
+
+      <div class="polaroid" style="--rot: 1.3deg">
+        <div class="polaroid-img"><img src="photos/photo12.jpg" alt=""></div>
+      </div>
+
+      <div class="polaroid" style="--rot: -2.7deg">
+        <div class="polaroid-img"><img src="photos/photo13.jpg" alt=""></div>
+      </div>
+
+      <div class="polaroid" style="--rot: 2.4deg">
+        <div class="polaroid-img"><img src="photos/photo14.jpg" alt=""></div>
+      </div>
+
+      <div class="polaroid" style="--rot: -1.1deg">
+        <div class="polaroid-img"><img src="photos/photo15.jpg" alt=""></div>
+      </div>
+
+      <div class="polaroid" style="--rot: 3.1deg">
+        <div class="polaroid-img"><video src="photos/video1.mp4" autoplay loop muted playsinline style="object-fit:cover"></video></div>
+      </div>
+
+      <div class="polaroid" style="--rot: -2.3deg">
+        <div class="polaroid-img"><img src="photos/photo16.jpg" alt=""></div>
+      </div>
+
+      <div class="polaroid" style="--rot: 1.7deg">
+        <div class="polaroid-img"><img src="photos/photo17.jpg" alt=""></div>
+      </div>
+
+      <div class="polaroid" style="--rot: -3.2deg">
+        <div class="polaroid-img"><img src="photos/photo18.jpg" alt=""></div>
+      </div>
+
+      <div class="polaroid" style="--rot: 2.6deg">
+        <div class="polaroid-img"><img src="photos/photo19.jpg" alt=""></div>
+      </div>
+
+      <div class="polaroid" style="--rot: -1.5deg">
+        <div class="polaroid-img"><video src="photos/video2.mp4" autoplay loop muted playsinline style="object-fit:cover"></video></div>
+      </div>
+
+      <div class="polaroid" style="--rot: 2.9deg">
+        <div class="polaroid-img"><img src="photos/photo20.jpg" alt=""></div>
+      </div>
+
+      <div class="polaroid" style="--rot: -2.1deg">
+        <div class="polaroid-img"><img src="photos/photo21.jpg" alt=""></div>
+      </div>
+
+      <div class="polaroid" style="--rot: 1.4deg">
+        <div class="polaroid-img"><img src="photos/photo22.jpg" alt=""></div>
+      </div>
+
+      <div class="polaroid" style="--rot: -3.0deg">
+        <div class="polaroid-img"><img src="photos/photo23.jpg" alt=""></div>
+      </div>
+
+      <div class="polaroid" style="--rot: 2.2deg">
+        <div class="polaroid-img"><video src="photos/video3.mp4" autoplay loop muted playsinline style="object-fit:cover"></video></div>
+      </div>
+
+      <div class="polaroid" style="--rot: -1.8deg">
+        <div class="polaroid-img"><img src="photos/photo24.jpg" alt=""></div>
+      </div>
+
+      <div class="polaroid" style="--rot: 3.3deg">
+        <div class="polaroid-img"><img src="photos/photo25.jpg" alt=""></div>
+      </div>
+
+      <div class="polaroid" style="--rot: -2.5deg">
+        <div class="polaroid-img"><img src="photos/photo26.jpg" alt=""></div>
+      </div>
+
+      <div class="polaroid" style="--rot: 1.6deg">
+        <div class="polaroid-img"><img src="photos/photo27.jpg" alt=""></div>
+      </div>
+
+      <div class="polaroid" style="--rot: -2.9deg">
+        <div class="polaroid-img"><video src="photos/video4.mp4" autoplay loop muted playsinline style="object-fit:cover"></video></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       ABOUT
+  ═══════════════════════════════════════════════════════ -->
+
+  <!-- ══════════════════════════════════════════════════════
+       STUDIO
+  ═══════════════════════════════════════════════════════ -->
+  <section id="studio">
+    <h2 class="section-title reveal">Your Little Studio, Baby 📸</h2>
+    <p class="section-sub reveal">take a photo, make it yours</p>
+
+    <!-- Step 1: Upload -->
+    <div class="reveal">
+      <div class="studio-film-frame">
+        <div class="studio-img-area" id="studioImgArea">
+          <img id="studioPreviewImg" alt="your photo" />
+          <div class="studio-placeholder" id="studioPlaceholder">
+            <span>📷</span>
+            <p>your photo goes here</p>
+          </div>
+        </div>
+        <p class="studio-frame-caption" id="studioFrameCaption">waiting for you, baby 🌸</p>
+      </div>
+      <p class="studio-ready" id="studioReady">photo ready ✓</p>
+      <div class="studio-input-btns">
+        <label for="studioCameraInput" class="studio-btn">📷 Take a Photo</label>
+        <input type="file" accept="image/*" capture="user" id="studioCameraInput" style="display:none" onchange="studioLoadPhoto(this)" />
+        <label for="studioFileInput" class="studio-btn-outline">🖼️ Upload Instead</label>
+        <input type="file" accept="image/*" id="studioFileInput" style="display:none" onchange="studioLoadPhoto(this)" />
+      </div>
+    </div>
+
+    <!-- Step 2: Transform -->
+    <div class="studio-transform-wrap reveal">
+      <p class="studio-section-label">describe your transformation</p>
+      <input type="text" class="studio-prompt-input" id="studioPrompt"
+        placeholder="e.g. turn this into a Studio Ghibli scene, make it look like a watercolor painting, turn me into a sticker…" />
+      <div class="studio-presets" id="studioPresets"></div>
+    </div>
+
+    <!-- Step 3: Generate -->
+    <div class="reveal">
+      <button class="studio-generate-btn" id="studioGenerateBtn" onclick="studioGenerate()">✨ Transform My Photo</button>
+    </div>
+
+    <!-- Loading -->
+    <div class="studio-loading" id="studioLoading">
+      <span class="studio-loading-icon">💫</span>
+      <p>creating your magic, baby… ✨</p>
+    </div>
+
+    <!-- Error -->
+    <p class="studio-error" id="studioError"></p>
+
+    <!-- Step 4: Result -->
+    <div class="studio-result" id="studioResult">
+      <div class="studio-film-frame">
+        <div class="studio-img-area">
+          <img id="studioResultImg" alt="transformed" />
+        </div>
+        <p class="studio-frame-caption">yours to keep, baby 🌸</p>
+      </div>
+      <p class="studio-caption">yours to keep, baby 🌸</p>
+      <div class="studio-result-btns">
+        <button class="studio-btn" onclick="studioDownload()">⬇️ Download</button>
+        <button class="studio-btn-outline" onclick="studioReset()">🔄 Try Again</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════════════════ -->
+  <footer id="footer">
+    <div class="footer-hearts" id="footerHearts"></div>
+    <p class="footer-msg">
+      Made with every bit of love I have,<br>for my Baby — Uuriintuya. 💙
+    </p>
+    <p class="footer-sig">— Margad</p>
+    <span class="footer-heart-big">💗</span>
+  </footer>
+
+  <!-- ══════════════════════════════════════════════════════
+       JAVASCRIPT
+  ═══════════════════════════════════════════════════════ -->
+  <script>
+    /* ─── Intro animation ────────────────────────────── */
+    (function () {
+      const intro = document.getElementById('intro');
+      const wrap  = document.getElementById('introPetals');
+
+      // Scatter petals during intro
+      for (let i = 0; i < 30; i++) {
+        const p = document.createElement('div');
+        p.className = 'intro-petal';
+        p.style.cssText = `
+          left: ${Math.random() * 100}%;
+          top: ${-Math.random() * 20}%;
+          width: ${10 + Math.random() * 14}px;
+          height: ${10 + Math.random() * 14}px;
+          animation-duration: ${1.5 + Math.random() * 1.5}s;
+          animation-delay: ${Math.random() * 1.2}s;
+          transform: rotate(${Math.random() * 360}deg);
+        `;
+        wrap.appendChild(p);
+      }
+
+      setTimeout(() => {
+        intro.classList.add('hidden');
+        setTimeout(() => intro.remove(), 900);
+      }, 2600);
+    })();
+
+    /* ─── Global falling petals ──────────────────────── */
+    (function () {
+      const container = document.getElementById('globalPetals');
+      const count = 22;
+      for (let i = 0; i < count; i++) {
+        const p = document.createElement('div');
+        p.className = 'petal';
+        p.style.cssText = `
+          left: ${Math.random() * 100}%;
+          width: ${12 + Math.random() * 14}px;
+          height: ${12 + Math.random() * 14}px;
+          animation-duration: ${7 + Math.random() * 9}s;
+          animation-delay: ${Math.random() * 12}s;
+          opacity: 0;
+          transform: rotate(${Math.random() * 360}deg);
+        `;
+        container.appendChild(p);
+      }
+    })();
+
+    /* ─── Footer floating hearts ─────────────────────── */
+    (function () {
+      const wrap = document.getElementById('footerHearts');
+      const emojis = ['💗', '💕', '🌸', '✨', '💙', '🌷'];
+      for (let i = 0; i < 18; i++) {
+        const h = document.createElement('span');
+        h.className = 'fheart';
+        h.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        h.style.cssText = `
+          left: ${Math.random() * 100}%;
+          --fs: ${0.9 + Math.random() * 1.4}rem;
+          animation-duration: ${5 + Math.random() * 7}s;
+          animation-delay: ${Math.random() * 7}s;
+        `;
+        wrap.appendChild(h);
+      }
+    })();
+
+    /* ─── Love Note Modal ────────────────────────────── */
+    const loveNotes = [
+      { title: "Your Smile",               message: "Your smile does something to me that I genuinely cannot explain. The moment it appears my whole world just gets better." },
+      { title: "Your Laugh",               message: "Your window sounding and your yama giggles kkk, they are the best sounds in the entire world. Never stop laughing like that baby." },
+      { title: "Your Eyes",                message: "I love your amazing hazel eyes and bambi eyes. Genuinely so beautiful." },
+      { title: "Your Nose",                message: "I love your nose, it's just the cutest thing." },
+      { title: "Your dawkhra",             message: "Your dawkhra 😭 I love it so much, it's one of my favourite things about you." },
+      { title: "Your Hair",                message: "The way your hair just naturally turns into the color of spring. You are so effortlessly beautiful and you don't even realise it." },
+      { title: "Your Glasses",             message: "You with your glasses on is actually everything to me. You look so cute every single time." },
+      { title: "Your Voice",               message: "When you soft talk to me my heart just melts. Please never stop doing that." },
+      { title: "When you erhluulh",        message: "When you erhluulh I genuinely cannot handle it kkk." },
+      { title: "Your aash",                message: "I love your aash 💙" },
+      { title: "How you're so elii",       message: "I love how you're so elii and just make everything fun without even trying. It's genuinely one of my favourite things about you." },
+      { title: "You're a kid 24/7",        message: "I love how you're just a kid 24/7 even in the most serious moments. It's so hard to take you seriously sometimes kkk." },
+      { title: "You're an erhiin manag",   message: "I love that you're an erhiin manag. It's one of my favourite things about you." },
+      { title: "Hurhun sharkowshu ji",     message: "Hurhun sharkowshu ji 💙" },
+      { title: "Urgelj huuhdeere bgareii", message: "Urgelj huuhdeere bgareii 🥺" }
+    ];
+    let lastNoteIdx = -1;
+
+    function pickNote() {
+      let idx;
+      do { idx = Math.floor(Math.random() * loveNotes.length); } while (idx === lastNoteIdx && loveNotes.length > 1);
+      lastNoteIdx = idx;
+      return loveNotes[idx];
+    }
+
+    function setNoteContent(note) {
+      document.getElementById('modalNoteTitle').textContent = '💙 ' + note.title;
+      document.getElementById('modalText').textContent = note.message;
+    }
+
+    function openLoveNote() {
+      setNoteContent(pickNote());
+      document.getElementById('loveModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLoveNote() {
+      document.getElementById('loveModal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function nextLoveNote() {
+      const titleEl = document.getElementById('modalNoteTitle');
+      const bodyEl  = document.getElementById('modalText');
+      titleEl.style.opacity = '0';
+      bodyEl.style.opacity  = '0';
+      setTimeout(() => {
+        setNoteContent(pickNote());
+        titleEl.style.opacity = '1';
+        bodyEl.style.opacity  = '1';
+      }, 200);
+    }
+
+    function handleOverlayClick(e) {
+      if (e.target === document.getElementById('loveModal')) closeLoveNote();
+    }
+
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLoveNote(); });
+
+    /* ─── Polaroid photo preview ────────────────────────── */
+    function previewPhoto(inputId, labelId, imgId) {
+      const file = document.getElementById(inputId).files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const img   = document.getElementById(imgId);
+        const label = document.getElementById(labelId);
+        img.src = e.target.result;
+        img.style.display = 'block';
+        label.classList.add('hidden');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    /* ─── Studio ────────────────────────────────────── */
+    const WAVESPEED_KEY = '4ffe05cc3a870f7b2dbe11efdc01c9a63158a72394ee4aa292bc111a6464585a';
+    const WAVESPEED_URL = 'https://api.wavespeed.ai/api/v3/wavespeed-ai/nano-banana-pro';
+
+    const studioPresetsData = [
+      { label: '🎨 Watercolor painting', prompt: 'Transform this into a beautiful watercolor painting with soft flowing colors, visible brush strokes, and a dreamy painterly aesthetic' },
+      { label: '🌸 Soft anime style',    prompt: 'Transform this into a soft pastel anime illustration with large expressive eyes, clean line art, and a gentle shōjo manga aesthetic' },
+      { label: '🎞️ Vintage film',        prompt: 'Transform this into a vintage analog film photograph with grain, light leaks, warm faded tones, and a nostalgic 1970s aesthetic' },
+      { label: '🖋️ Pencil sketch',       prompt: 'Transform this into a detailed pencil sketch with fine crosshatching, delicate shading, and a hand-drawn illustration aesthetic' },
+      { label: '🌙 Dark fantasy',        prompt: 'Transform this into a dark fantasy digital painting with dramatic lighting, moody atmosphere, and a cinematic fantasy art aesthetic' },
+      { label: '🌷 Dreamy pastel',       prompt: 'Transform this into a dreamy pastel illustration with soft pink and lavender tones, bokeh background, and a whimsical romantic aesthetic' },
+      { label: '🩹 Cute sticker',        prompt: 'Transform this into an adorable cute sticker with a bold white outline, flat vibrant colors, kawaii-style proportions, and a glossy sticker aesthetic' },
+      { label: '🖼️ Oil painting',        prompt: 'Transform this into a classic oil painting with rich textures, visible brushwork, dramatic chiaroscuro lighting, and a Renaissance portrait aesthetic' }
+    ];
+
+    let studioPhotoBase64  = null;
+    let studioResultUrl    = null;
+    let studioActivePreset = -1;
+
+    // Build preset pills
+    (function () {
+      const wrap = document.getElementById('studioPresets');
+      studioPresetsData.forEach((p, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'studio-preset-pill';
+        btn.textContent = p.label;
+        btn.onclick = () => studioSelectPreset(i);
+        wrap.appendChild(btn);
+      });
+    })();
+
+    function studioSelectPreset(idx) {
+      studioActivePreset = idx;
+      document.querySelectorAll('.studio-preset-pill').forEach((b, i) =>
+        b.classList.toggle('active', i === idx));
+      document.getElementById('studioPrompt').value = studioPresetsData[idx].prompt;
+    }
+
+    function studioLoadPhoto(input) {
+      const file = input.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const img = new Image();
+        img.onload = function () {
+          const MAX = 1024;
+          const canvas = document.createElement('canvas');
+          let w = img.width, h = img.height;
+          if (w > MAX || h > MAX) {
+            const r = Math.min(MAX / w, MAX / h);
+            w = Math.round(w * r); h = Math.round(h * r);
+          }
+          canvas.width = w; canvas.height = h;
+          canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+          const dataUrl = canvas.toDataURL('image/jpeg', 0.92);
+          studioPhotoBase64 = dataUrl.split(',')[1];
+          // show preview
+          const prev = document.getElementById('studioPreviewImg');
+          prev.src = dataUrl;
+          prev.style.display = 'block';
+          document.getElementById('studioPlaceholder').style.display = 'none';
+          document.getElementById('studioFrameCaption').textContent = 'looking good ✨';
+          document.getElementById('studioReady').style.display = 'block';
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    async function studioGenerate() {
+      const errorEl  = document.getElementById('studioError');
+      const loadEl   = document.getElementById('studioLoading');
+      const resultEl = document.getElementById('studioResult');
+      const genBtn   = document.getElementById('studioGenerateBtn');
+
+      errorEl.style.display  = 'none';
+      resultEl.style.display = 'none';
+
+      if (!studioPhotoBase64) {
+        studioShowError("don't forget to add your photo first! 📷"); return;
+      }
+      const prompt = document.getElementById('studioPrompt').value.trim();
+      if (!prompt) {
+        studioShowError('tell me how to transform it first ✨'); return;
+      }
+
+      loadEl.style.display = 'flex';
+      genBtn.disabled = true;
+
+      try {
+        const res = await fetch(WAVESPEED_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${WAVESPEED_KEY}`
+          },
+          body: JSON.stringify({
+            image: studioPhotoBase64,
+            prompt: `Transform this photo: ${prompt}. Make it look exactly like the described style while keeping the person or subject recognizable.`,
+            size: '1024x1024',
+            num_images: 1
+          })
+        });
+
+        const data = await res.json();
+        if (!res.ok || !data.data?.outputs?.[0]) {
+          throw new Error(data.message || 'no output returned');
+        }
+
+        studioResultUrl = data.data.outputs[0];
+        const resultImg = document.getElementById('studioResultImg');
+        resultImg.src = studioResultUrl;
+        resultEl.style.display = 'block';
+        resultEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } catch (err) {
+        studioShowError('something went wrong, try again baby 🌸');
+        console.error(err);
+      } finally {
+        loadEl.style.display = 'none';
+        genBtn.disabled = false;
+      }
+    }
+
+    function studioShowError(msg) {
+      const el = document.getElementById('studioError');
+      el.textContent = msg;
+      el.style.display = 'block';
+    }
+
+    async function studioDownload() {
+      if (!studioResultUrl) return;
+      try {
+        const blob = await fetch(studioResultUrl).then(r => r.blob());
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'uuree-studio.png';
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(a.href), 10000);
+      } catch {
+        const a = document.createElement('a');
+        a.href = studioResultUrl;
+        a.target = '_blank';
+        a.click();
+      }
+    }
+
+    function studioReset() {
+      studioPhotoBase64  = null;
+      studioResultUrl    = null;
+      studioActivePreset  = -1;
+      document.getElementById('studioPreviewImg').style.display = 'none';
+      document.getElementById('studioPlaceholder').style.display = 'flex';
+      document.getElementById('studioFrameCaption').textContent = 'waiting for you, baby 🌸';
+      document.getElementById('studioReady').style.display = 'none';
+      document.getElementById('studioPrompt').value = '';
+      document.getElementById('studioResult').style.display = 'none';
+      document.getElementById('studioError').style.display = 'none';
+      document.querySelectorAll('.studio-preset-pill').forEach(b => b.classList.remove('active'));
+    }
+
+    /* ─── Scroll reveal ──────────────────────────────── */
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer  = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
