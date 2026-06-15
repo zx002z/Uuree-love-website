@@ -48,16 +48,24 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: 'No request ID returned from Wavespeed', full: submitData });
     }
 
+    // Wait 3s for the image to be ready
+    await new Promise(r => setTimeout(r, 3000));
+
     // Step 2 — fetch the result
     const resultRes = await fetch(
       `https://api.wavespeed.ai/api/v3/predictions/${requestId}/result`,
       { headers: { 'Authorization': `Bearer ${apiKey}` } }
     );
 
-    const resultData = await resultRes.json();
-    console.log("Full result response:", JSON.stringify(resultData));
+    const resultText = await resultRes.text();
+    console.log("Full result response:", resultText);
+    const resultData = JSON.parse(resultText);
 
-    const imageUrl = resultData.data?.outputs?.[0] || resultData.outputs?.[0] || resultData.url;
+    const imageUrl =
+      resultData.data?.outputs?.[0] ||
+      resultData.outputs?.[0] ||
+      resultData.data?.images?.[0] ||
+      resultData.images?.[0];
 
     if (!imageUrl) {
       return res.status(500).json({ error: 'No output returned from Wavespeed', full: resultData });
