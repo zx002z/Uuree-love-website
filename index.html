@@ -1235,32 +1235,10 @@
             output_format: 'png'
           })
         });
-        const submitData = await submitResponse.json();
-        console.log("Wavespeed submit response:", JSON.stringify(submitData));
-
-        if (!submitResponse.ok) {
-          throw new Error(submitData.message || 'submit failed');
-        }
-
-        // Step 2 — fetch the result using the request ID
-        const requestId = submitData.data?.id;
-        if (!requestId) throw new Error('no request ID returned');
-
-        const resultResponse = await fetch(
-          `https://api.wavespeed.ai/api/v3/predictions/${requestId}/result`,
-          { headers: { 'Authorization': `Bearer ${WAVESPEED_KEY}` } }
-        );
-        const resultData = await resultResponse.json();
-        console.log("Wavespeed result:", JSON.stringify(resultData));
-
-        const imageUrl = resultData.data?.outputs?.[0];
-        if (!imageUrl) throw new Error(resultData.message || 'no output returned');
-
-        studioResultUrl = imageUrl;
-        const resultImg = document.getElementById('studioResultImg');
-        resultImg.src = studioResultUrl;
-        resultEl.style.display = 'block';
-        resultEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        console.log("Step 1 status:", submitResponse.status);
+        console.log("Step 1 ok:", submitResponse.ok);
+        const rawText = await submitResponse.text();
+        console.log("Step 1 raw response:", rawText);
       } catch (err) {
         studioShowError('something went wrong, try again baby 🌸');
         console.error(err);
