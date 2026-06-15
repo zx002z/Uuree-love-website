@@ -914,6 +914,7 @@
   <section id="studio">
     <h2 class="section-title reveal">Your Little Studio, Baby 📸</h2>
     <p class="section-sub reveal">take a photo, make it yours</p>
+    <button onclick="testAPI()" style="background:#C0392B;color:#fff;border:none;padding:12px 24px;font-size:1rem;font-weight:700;border-radius:6px;cursor:pointer;display:block;margin:0 auto 20px;">TEST API</button>
 
     <!-- Step 1: Upload -->
     <div class="reveal">
@@ -1244,6 +1245,17 @@
         loadEl.style.display = 'none';
         genBtn.disabled = false;
       }
+    }
+
+    async function testAPI() {
+      console.log("test button clicked");
+      const res = await fetch("/api/transform", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt: "test", image: "test" })
+      });
+      const text = await res.text();
+      console.log("api response:", text);
     }
 
     function studioShowError(msg) {
