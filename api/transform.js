@@ -9,7 +9,10 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Missing image or prompt' });
   }
 
-  const key = process.env.wavespeed_key;
+  const apiKey = process.env.wavespeed_key;
+  console.log("Key being used starts with:", apiKey?.substring(0, 10));
+  console.log("Key length:", apiKey?.length);
+  const key = apiKey;
 
   try {
     // Step 1 — submit the task
