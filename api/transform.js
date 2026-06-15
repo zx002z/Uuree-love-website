@@ -25,7 +25,7 @@ export default async function handler(req, res) {
           'Authorization': `Bearer ${key}`
         },
         body: JSON.stringify({
-          image,
+          images: [image],
           prompt,
           enable_sync_mode: true,
           output_format: 'png'
