@@ -1133,7 +1133,7 @@
 
     /* ─── Studio ────────────────────────────────────── */
     const WAVESPEED_KEY = '4ffe05cc3a870f7b2dbe11efdc01c9a63158a72394ee4aa292bc111a6464585a';
-    const WAVESPEED_URL = 'https://api.wavespeed.ai/api/v3/wavespeed-ai/nano-banana-pro';
+    const WAVESPEED_URL = 'https://api.wavespeed.ai/api/v3/google/nano-banana-pro/edit';
 
     const studioPresetsData = [
       { label: '🎨 Watercolor painting', prompt: 'Transform this into a beautiful watercolor painting with soft flowing colors, visible brush strokes, and a dreamy painterly aesthetic' },
@@ -1221,29 +1221,42 @@
       genBtn.disabled = true;
 
       try {
-        const res = await fetch(WAVESPEED_URL, {
+        // Step 1 — submit the task
+        const submitResponse = await fetch(WAVESPEED_URL, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${WAVESPEED_KEY}`,
-            'Origin': 'https://uuree-love-website.vercel.app'
+            'Authorization': `Bearer ${WAVESPEED_KEY}`
           },
           body: JSON.stringify({
             image: studioPhotoBase64,
             prompt: `Transform this photo: ${prompt}. Make it look exactly like the described style while keeping the person or subject recognizable.`,
-            size: '1024x1024',
-            num_images: 1
+            enable_sync_mode: true,
+            output_format: 'png'
           })
         });
+        const submitData = await submitResponse.json();
+        console.log("Wavespeed submit response:", JSON.stringify(submitData));
 
-        const text = await res.text();
-        console.log("Wavespeed raw response:", text);
-        const data = JSON.parse(text);
-        if (!res.ok || !data.data?.outputs?.[0]) {
-          throw new Error(data.message || 'no output returned');
+        if (!submitResponse.ok) {
+          throw new Error(submitData.message || 'submit failed');
         }
 
-        studioResultUrl = data.data.outputs[0];
+        // Step 2 — fetch the result using the request ID
+        const requestId = submitData.data?.id;
+        if (!requestId) throw new Error('no request ID returned');
+
+        const resultResponse = await fetch(
+          `https://api.wavespeed.ai/api/v3/predictions/${requestId}/result`,
+          { headers: { 'Authorization': `Bearer ${WAVESPEED_KEY}` } }
+        );
+        const resultData = await resultResponse.json();
+        console.log("Wavespeed result:", JSON.stringify(resultData));
+
+        const imageUrl = resultData.data?.outputs?.[0];
+        if (!imageUrl) throw new Error(resultData.message || 'no output returned');
+
+        studioResultUrl = imageUrl;
         const resultImg = document.getElementById('studioResultImg');
         resultImg.src = studioResultUrl;
         resultEl.style.display = 'block';
