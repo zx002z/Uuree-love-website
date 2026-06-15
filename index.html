@@ -1132,8 +1132,6 @@
     }
 
     /* ─── Studio ────────────────────────────────────── */
-    const WAVESPEED_KEY = '4ffe05cc3a870f7b2dbe11efdc01c9a63158a72394ee4aa292bc111a6464585a';
-    const WAVESPEED_URL = 'https://api.wavespeed.ai/api/v3/google/nano-banana-pro/edit';
 
     const studioPresetsData = [
       { label: '🎨 Watercolor painting', prompt: 'Transform this into a beautiful watercolor painting with soft flowing colors, visible brush strokes, and a dreamy painterly aesthetic' },
@@ -1221,24 +1219,24 @@
       genBtn.disabled = true;
 
       try {
-        // Step 1 — submit the task
-        const submitResponse = await fetch(WAVESPEED_URL, {
+        const apiResponse = await fetch('/api/transform', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${WAVESPEED_KEY}`
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             image: studioPhotoBase64,
-            prompt: `Transform this photo: ${prompt}. Make it look exactly like the described style while keeping the person or subject recognizable.`,
-            enable_sync_mode: true,
-            output_format: 'png'
+            prompt: `Transform this photo: ${prompt}. Make it look exactly like the described style while keeping the person or subject recognizable.`
           })
         });
-        console.log("Step 1 status:", submitResponse.status);
-        console.log("Step 1 ok:", submitResponse.ok);
-        const rawText = await submitResponse.text();
-        console.log("Step 1 raw response:", rawText);
+        const apiData = await apiResponse.json();
+        if (!apiResponse.ok) throw new Error(apiData.error || 'transform failed');
+        const imageUrl = apiData.imageUrl;
+        if (!imageUrl) throw new Error('no image returned');
+
+        studioResultUrl = imageUrl;
+        const resultImg = document.getElementById('studioResultImg');
+        resultImg.src = studioResultUrl;
+        resultEl.style.display = 'block';
+        resultEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
       } catch (err) {
         studioShowError('something went wrong, try again baby 🌸');
         console.error(err);
